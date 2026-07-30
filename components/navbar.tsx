@@ -1,10 +1,10 @@
-
+import styles from "./navbar.module.css";
 
 export default function NavBar(){
     return(
-        <nav>
+        <nav className={styles.navbar}>
             <h1>Aggie Nails</h1>
-            <div>
+            <div className={styles.links}>
                 <a href="/">Home</a>
                 <a href="/gallery">Gallery</a>
                 <a href="/about">About</a>
