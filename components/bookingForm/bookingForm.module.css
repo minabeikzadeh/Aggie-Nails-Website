@@ -17,15 +17,14 @@
 .title{
     font-size: 3rem;
     font-weight: 700;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     color: #2b2525;
 }
 
 .bookingContainer{
     max-width: 1200px;
     margin: 0 auto;
-    padding: 1rem 0.5rem;
+    padding: 2rem 1rem;
     
 }
 
@@ -65,17 +64,43 @@
     object-position: 10% 25%;
 }
 
-.serviceCard h3 {
-    padding: 1rem;
-    margin: 0;
-    text-align: center;
-    color: black;
+
+.serviceInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.2rem;
+    color:#2b2525;
+}
+
+.serviceCard h2 {
     font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.serviceCard ul {
+    padding-left: 1.2rem;
+    color: #5f5555;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    font-weight: 550;
+}
+
+.serviceCard li {
+    margin-bottom: 0.2rem;
+}
+
+.price {
+    margin-top: auto;
+
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2b2525;
 }
 
 .serviceCard p {
-    text-align: center;
-    color:black;
-    padding: 1rem;
-    font-weight: 200;
+    font-size: 1rem;
+    font-weight: 600;
 }
+

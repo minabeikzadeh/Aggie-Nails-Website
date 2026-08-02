@@ -4,9 +4,14 @@
     justify-content: space-between;
     margin: 20px;
     align-items: center;
+    font-weight: 500;
 }
 
 .links {
     display: flex;
     gap: 8rem;
+}
+
+.boldedElements {
+    font-weight: 900;
 }
