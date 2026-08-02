@@ -1,0 +1,81 @@
+
+.bookingPage{
+    background-color:  #faf7f5;
+    height: 90vh;
+    overflow: hidden;
+}
+
+.serviceGrid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4rem;
+    font-weight: 600;
+}
+
+
+
+.title{
+    font-size: 3rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    color: #2b2525;
+}
+
+.bookingContainer{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 0.5rem;
+    
+}
+
+
+
+.serviceCard{
+    cursor: pointer;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    background: #ffffff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.serviceCard:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+
+.essential_img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    object-position: 50% 69%;
+}
+.signature_img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    object-position: 50% 40%;
+}
+.statement_img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    object-position: 10% 25%;
+}
+
+.serviceCard h3 {
+    padding: 1rem;
+    margin: 0;
+    text-align: center;
+    color: black;
+    font-size: 1.5rem;
+}
+
+.serviceCard p {
+    text-align: center;
+    color:black;
+    padding: 1rem;
+    font-weight: 200;
+}

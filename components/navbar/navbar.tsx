@@ -1,4 +1,5 @@
 import styles from "./navbar.module.css";
+import Link from "next/link";
 
 export default function NavBar(){
     return(
@@ -10,8 +11,10 @@ export default function NavBar(){
                 <a href="/about">About</a>
                 <a href="/faq">FAQ</a>
             </div>
+            <Link href="/book">
+                <button>BOOK NOW</button>
+            </Link>
 
-            <button>Book Now</button>
         </nav>
     );
 }

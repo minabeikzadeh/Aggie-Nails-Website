@@ -1,4 +1,4 @@
-import NavBar from "@/components/navbar";
+import NavBar from "@/components/navbar/navbar";
 
 
 export default function About(){
