@@ -29,6 +29,75 @@
 }
 
 
+:global(.rdp-caption_label) {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2b2525;
+}
+
+
+:global(.rdp-selected) {
+    background-color: #235a98 !important;
+    color: rgb(49, 72, 118) !important;
+    border-radius: 50%;
+}
+:global(.rdp-day:hover) {
+    background-color: #b1c5e0;
+    border-radius: 50%;
+}
+:global(.rdp-disabled) {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.calendar {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.additionalQuestion {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    color: #2b2525;
+    padding: 2rem;
+    background-color: white;
+    gap: 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    margin: 2rem auto;
+    margin-top: 4.5rem;
+}
+
+.additionalQuestion p {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.additionalQuestion label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    padding: 1rem;
+
+    border: 1px solid #ddd;
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+.additionalQuestion label:hover {
+    background: #dadef2;
+    border-color: #828798;
+}
+.additionalQuestion input[type="radio"] {
+    display: none;
+}
+
 
 .serviceCard{
     cursor: pointer;
