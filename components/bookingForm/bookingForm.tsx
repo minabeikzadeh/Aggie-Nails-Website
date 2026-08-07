@@ -8,6 +8,15 @@ import "react-day-picker/style.css";
 
 const bookingStartDate = new Date(2026, 8, 1);
 const bookingEndDate = new Date(2026, 8, 30);
+const availableTimes= {
+    0: ["11:30 am", "2:00 pm"],
+    1: ["10:00 am", "1:00 pm"],
+    2: [],
+    3: ["10:00 am", "1:00 pm"],
+    4: [],
+    5: ["9:30 am"],
+    6: ["11:30 am", "2:00 pm"]
+};
 
 
 export default function BookingForm(){
@@ -18,7 +27,9 @@ export default function BookingForm(){
     const[appointmentType, setAppointmentType] = useState("");
     const[removalType, setRemovalType] = useState("");
     const[selectedDate, setSelectedDate] = useState<Date | undefined>();
+    const[selectedTime, setSelectedTime] = useState("");
 
+    const timesForSelectedDate = selectedDate ? availableTimes[selectedDate.getDay() as keyof typeof availableTimes] : [];
 
     return(
         <>
@@ -32,6 +43,7 @@ export default function BookingForm(){
             {currentStep === 1 && (
                 <section className={styles.serviceGrid}>
 
+                    
                     <div 
                         className={styles.serviceCard}
                         onClick={() => {
@@ -106,6 +118,12 @@ export default function BookingForm(){
                 >
                     <p>What type of appointment is this?</p>
 
+                    <button
+                        className={styles.backButton}
+                        onClick={() => setCurrentStep((prevStep)=> prevStep-1)}
+                    >Back
+                    </button>
+
                     <label 
                         onClick={() => {
                             setAppointmentType("New");
@@ -143,6 +161,12 @@ export default function BookingForm(){
                 <div className={styles.additionalQuestion}>
                     <p>Do you need a removal?</p>
 
+                    <button
+                        className={styles.backButton}
+                        onClick={() => setCurrentStep((prevStep)=> prevStep-1)}
+                    >Back
+                    </button>
+
                     <label
                         onClick={() => {
                             setRemovalType("LocalRemoval");
@@ -179,6 +203,11 @@ export default function BookingForm(){
             {currentStep === 4 && (
                 <div className={styles.additionalQuestion}>
                     <p> Select your appointment date</p>
+                    <button
+                        className={styles.backButton}
+                        onClick={() => setCurrentStep((prevStep)=> prevStep-1)}
+                    >Back
+                    </button>
                     <div className={styles.calendar}>
                         <DayPicker 
                             mode="single"
@@ -201,6 +230,51 @@ export default function BookingForm(){
             {currentStep === 5 && (
                 <div className={styles.additionalQuestion}>
                     <p> Select a time </p>
+
+                    <button
+                        className={styles.backButton}
+                        onClick={() => setCurrentStep((prevStep)=> prevStep-1)}
+                    >Back
+                    </button>
+                
+                    <div className={styles.additionalQuestionAnswers}>
+                        {timesForSelectedDate.map((time) => (
+                            <label key={time}>
+                                <input 
+                                    type = "radio"
+                                    name = "appointmentTime"
+                                    value = {time}
+                                    onChange = {() => {
+                                        setSelectedTime(time);
+                                        setCurrentStep((prevStep) => prevStep+1);
+                                    }}
+                                />
+                                {time}
+
+                            </label>
+                    
+                    ))}
+                    </div>
+                </div>
+            )}
+
+            {currentStep === 6 && (
+                <div className={styles.additionalQuestion}>
+                    <p> Appointment Details</p>
+                    <button
+                        className={styles.backButton}
+                        onClick={() => setCurrentStep((prevStep)=> prevStep-1)}
+                    >Back
+                    </button>
+                    <ul>
+                        <li>Service: {selectedService}</li>
+                        <li>Appointment Type: {appointmentType}</li>
+                        <li>Removal: {removalType}</li>
+                        <li>Date: {selectedDate?.toLocaleDateString()}</li>
+                        <li>Time: {selectedTime}</li>
+                    </ul>
+                <button className={styles.confirmButton}>Book Appointment</button>
+
                 </div>
             )}
             
