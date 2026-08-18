@@ -1,0 +1,33 @@
+// Prisma schema for Aggie Nails
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Customer {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String?
+  createdAt DateTime @default(now())
+
+  appointments Appointment[]
+}
+
+model Appointment {
+  id          Int      @id @default(autoincrement())
+  date        DateTime
+  time        String
+  service     String
+  extensions  Boolean
+  removal     Boolean
+  createdAt   DateTime @default(now())
+
+  customerId  Int
+  customer    Customer @relation(fields: [customerId], references: [id])
+}

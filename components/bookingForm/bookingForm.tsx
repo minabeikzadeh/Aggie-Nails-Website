@@ -21,23 +21,84 @@ const availableTimes= {
 
 export default function BookingForm(){
 
-    
+    //state
     const [currentStep, setCurrentStep] = useState(1);
     const[selectedService, setSelectedService] = useState("");
     const[appointmentType, setAppointmentType] = useState("");
     const[removalType, setRemovalType] = useState("");
     const[selectedDate, setSelectedDate] = useState<Date | undefined>();
     const[selectedTime, setSelectedTime] = useState("");
+    const [customerName, setCustomerName] = useState("");
+    const [customerEmail, setCustomerEmail] = useState("");
+    const [customerTel, setCustomerTel] = useState("");
 
     const timesForSelectedDate = selectedDate ? availableTimes[selectedDate.getDay() as keyof typeof availableTimes] : [];
 
+    const handleContinue = () => {
+        
+        if (currentStep === 2 && !appointmentType){
+            return
+        }
+        if (currentStep === 3 && !removalType){
+            return
+        }
+        if (currentStep === 4 && !selectedDate){
+            return
+        }
+        if (currentStep === 5 && !selectedTime){
+            return
+        }
+        if (currentStep === 6 && (!customerName || !customerEmail || !customerTel)){
+            return
+        }
+        setCurrentStep((prevStep) => prevStep + 1);};
+
+
+        const handleBooking = async () => {
+            const response = await fetch("/api/create-checkout-session", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                customerName,
+                customerEmail,
+                customerTel,
+                selectedService,
+                appointmentType,
+                removalType,
+                selectedDate,
+                selectedTime,
+              }),
+            });
+          
+            const data = await response.json();
+          
+            if (data.url) {
+              window.location.href = data.url;
+            } else {
+              console.error(data.error);
+            }
+          };
+          
     return(
+
+        
         <>
         <section className={styles.bookingPage}>
         <div className={styles.bookingContainer}>
 
 
             <h1 className= {styles.title}>Select a Service</h1>
+
+            {currentStep > 1 && (
+                <button 
+                    className={styles.backButton}
+                    onClick={() => setCurrentStep((prevStep) => prevStep - 1)}>
+                    Back
+                </button>
+            )}
+
 
 
             {currentStep === 1 && (
@@ -112,176 +173,190 @@ export default function BookingForm(){
                 </section>
             )}
 
-            {currentStep === 2 && (
-                <div className={styles.additionalQuestion}
-                    
-                >
-                    <p>What type of appointment is this?</p>
-
-                    <button
-                        className={styles.backButton}
-                        onClick={() => setCurrentStep((prevStep)=> prevStep-1)}
-                    >Back
-                    </button>
-
-                    <label 
-                        onClick={() => {
-                            setAppointmentType("New");
-                            setCurrentStep((prevStep) => prevStep+1);
-                        }}
+            
+            <div className={styles.stepContainer}>
+                
+                
+                {currentStep === 2 && (
+                    <div className={styles.additionalQuestion}
+                        
                     >
-                        <input type = "radio" name= "appointmentType" />
-                        New Gel-X Set
-                    </label>
+                        <p>What type of appointment is this?</p>
 
-                    <label
-                        onClick={() => {
-                            setAppointmentType("Fill");
-                            setCurrentStep((prevStep) => prevStep+1);
-                        }}
-                    >
-                        <input type = "radio" name= "appointmentType" />
-                        Gel-X Fill
-                    </label>
 
-                    <label
-                        onClick={() => {
-                            setAppointmentType("Natural");
-                            setCurrentStep((prevStep) => prevStep+1);
-                        }}
-                    >
-                        <input type = "radio" name= "appointmentType" />
-                        On Natural Nails
-                    </label>
+                        <label 
+                            onClick={() => {
+                                setAppointmentType("New");
+                            }}
+                        >
+                            <input type = "radio" name= "appointmentType" />
+                            New Gel-X Set
+                        </label>
 
-                </div>
-            )}
+                        <label
+                            onClick={() => {
+                                setAppointmentType("Fill");
+                            }}
+                        >
+                            <input type = "radio" name= "appointmentType" />
+                            Gel-X Fill
+                        </label>
 
-            {currentStep === 3 && (
-                <div className={styles.additionalQuestion}>
-                    <p>Do you need a removal?</p>
+                        <label
+                            onClick={() => {
+                                setAppointmentType("Natural");
+                            }}
+                        >
+                            <input type = "radio" name= "appointmentType" />
+                            On Natural Nails
+                        </label>
 
-                    <button
-                        className={styles.backButton}
-                        onClick={() => setCurrentStep((prevStep)=> prevStep-1)}
-                    >Back
-                    </button>
+                    </div>
+                )}
 
-                    <label
-                        onClick={() => {
-                            setRemovalType("LocalRemoval");
-                            setCurrentStep((prevStep) => prevStep+1);
-                        }}
-                    >
-                        <input type = "radio" name= "removalNeeded" />
-                        Remove my previous Aggie Nails set
-                    </label>
+                {currentStep === 3 && (
+                    <div className={styles.additionalQuestion}>
+                        <p>Do you need a removal?</p>
 
-                    <label
-                        onClick={() => {
-                            setRemovalType("foreignRemoval");
-                            setCurrentStep((prevStep) => prevStep+1);
-                        }}
-                    >
-                        <input type = "radio" name= "removalNeeded" />
-                        Remove another nail tech's work
-                    </label>
 
-                    <label
-                        onClick={() => {
-                            setRemovalType("noRemoval");
-                            setCurrentStep((prevStep) => prevStep+1);
-                        }}
-                    >
-                        <input type = "radio" name= "removalNeeded" />
-                        No, my nails are bare or I'm doing a fill
-                    </label>
-                </div>
-            )}
+                        <label
+                            onClick={() => {
+                                setRemovalType("LocalRemoval");
+                            }}
+                        >
+                            <input type = "radio" name= "removalNeeded" />
+                            Remove my previous Aggie Nails set
+                        </label>
 
+                        <label
+                            onClick={() => {
+                                setRemovalType("foreignRemoval");
+                            }}
+                        >
+                            <input type = "radio" name= "removalNeeded" />
+                            Remove another nail tech's work
+                        </label>
+
+                        <label
+                            onClick={() => {
+                                setRemovalType("noRemoval");
+                            }}
+                        >
+                            <input type = "radio" name= "removalNeeded" />
+                            No, my nails are bare or I'm doing a fill
+                        </label>
+                    </div>
+                )}
+
+        
+                {currentStep === 4 && (
+                    <div className={styles.additionalQuestion}>
+                        <p> Select your appointment date</p>
     
-            {currentStep === 4 && (
-                <div className={styles.additionalQuestion}>
-                    <p> Select your appointment date</p>
-                    <button
-                        className={styles.backButton}
-                        onClick={() => setCurrentStep((prevStep)=> prevStep-1)}
-                    >Back
-                    </button>
-                    <div className={styles.calendar}>
-                        <DayPicker 
-                            mode="single"
-                            selected={selectedDate}
-                            onSelect={(date) => {
-                                    if (!date) return;
-                                    setSelectedDate(date);
-                                    setCurrentStep((prevStep) => prevStep+1);
-                            }}
-                            disabled={{
-                                before: bookingStartDate,
-                                after: bookingEndDate,
-                            }}
-                            numberOfMonths={1}
+                        <div className={styles.calendar}>
+                            <DayPicker 
+                                mode="single"
+                                selected={selectedDate}
+                                onSelect={(date) => {
+                                        if (!date) return;
+                                        setSelectedDate(date);
+                                }}
+                                disabled={{
+                                    before: bookingStartDate,
+                                    after: bookingEndDate,
+                                }}
+                                numberOfMonths={1}
+                            />
+                        </div>
+                    </div>
+                )}
+
+                {currentStep === 5 && (
+                    <div className={styles.additionalQuestion}>
+                        <p> Select a time </p>
+
+                    
+                        <div className={styles.additionalQuestionAnswers}>
+                            {timesForSelectedDate.map((time) => (
+                                <label key={time}>
+                                    <input 
+                                        type = "radio"
+                                        name = "appointmentTime"
+                                        value = {time}
+                                        onChange = {() => {
+                                            setSelectedTime(time);
+                                        }}
+                                    />
+                                    {time}
+
+                                </label>
+                        
+                        ))}
+                        </div>
+                    </div>
+                )}
+
+                {currentStep === 6 && (
+                    <div className={styles.additionalQuestion}>
+                        <p>Your Information</p>
+
+
+                        <input 
+                            type = "text"
+                            value = {customerName}
+                            onChange = {(event) => setCustomerName(event.target.value)}  
+                            placeholder="Your name"                             
+                        />
+                        <input 
+                            type = "tel"
+                            value = {customerTel}
+                            onChange = {(event) => setCustomerTel(event.target.value)}  
+                            placeholder="Your cellphone number"                             
+                        />
+                        <input 
+                            type = "email"
+                            value = {customerEmail}
+                            onChange = {(event) => setCustomerEmail(event.target.value)}  
+                            placeholder="Your email"                             
                         />
                     </div>
-                </div>
-            )}
+                )}
 
-            {currentStep === 5 && (
-                <div className={styles.additionalQuestion}>
-                    <p> Select a time </p>
+               
+                {currentStep === 7 && (
+                    <div className={styles.additionalQuestion}>
+                        <p> Appointment Details</p>
 
-                    <button
-                        className={styles.backButton}
-                        onClick={() => setCurrentStep((prevStep)=> prevStep-1)}
-                    >Back
-                    </button>
-                
-                    <div className={styles.additionalQuestionAnswers}>
-                        {timesForSelectedDate.map((time) => (
-                            <label key={time}>
-                                <input 
-                                    type = "radio"
-                                    name = "appointmentTime"
-                                    value = {time}
-                                    onChange = {() => {
-                                        setSelectedTime(time);
-                                        setCurrentStep((prevStep) => prevStep+1);
-                                    }}
-                                />
-                                {time}
+                        <ul>
+                            <li>Service: {selectedService}</li>
+                            <li>Appointment Type: {appointmentType}</li>
+                            <li>Removal: {removalType}</li>
+                            <li>Date: {selectedDate?.toLocaleDateString()}</li>
+                            <li>Time: {selectedTime}</li>
+                            <li>Name: {customerName}</li>
+                            <li>Cel: {customerTel}</li>
+                            <li>Email: {customerEmail}</li>
+                        </ul>
+                    <button 
+                        className={styles.continueButton}
+                        onClick={handleBooking}
+                    >
+                        Book Appointment</button>
 
-                            </label>
-                    
-                    ))}
                     </div>
-                </div>
-            )}
+                )}
 
-            {currentStep === 6 && (
-                <div className={styles.additionalQuestion}>
-                    <p> Appointment Details</p>
+
+                {currentStep > 1 && currentStep < 7 &&(
                     <button
-                        className={styles.backButton}
-                        onClick={() => setCurrentStep((prevStep)=> prevStep-1)}
-                    >Back
+                        className={styles.continueButton}
+                        onClick={handleContinue}
+                    >
+                    Continue
                     </button>
-                    <ul>
-                        <li>Service: {selectedService}</li>
-                        <li>Appointment Type: {appointmentType}</li>
-                        <li>Removal: {removalType}</li>
-                        <li>Date: {selectedDate?.toLocaleDateString()}</li>
-                        <li>Time: {selectedTime}</li>
-                    </ul>
-                <button className={styles.confirmButton}>Book Appointment</button>
+                )}
 
-                </div>
-            )}
-            
-
-
-
-            
+            </div>
 
 
         </div>
