@@ -7,7 +7,7 @@
     background-image: linear-gradient(
         rgba(10, 10, 10, 0.4),
         rgba(0, 0, 0, 0.4)
-    ), url("/public/images/blue_gem_nails.jpg");
+    ), url("/images/blue_gem_nails.jpg");
   }
   
   .card {
