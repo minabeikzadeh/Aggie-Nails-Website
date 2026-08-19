@@ -6,7 +6,7 @@ export default function BookingSuccess() {
       <div className={styles.card}>
         <div className={styles.checkmark}>✓</div>
 
-        <p className={styles.smallTitle}>AGGY NAILS</p>
+        <p className={styles.smallTitle}>AGGIE NAILS</p>
 
         <h1>Booking Confirmed!</h1>
 
