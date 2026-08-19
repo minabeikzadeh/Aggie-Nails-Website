@@ -28,6 +28,8 @@ model Appointment {
   removal     Boolean
   createdAt   DateTime @default(now())
 
+  stripeSessionId String @unique 
+
   customerId  Int
   customer    Customer @relation(fields: [customerId], references: [id])
 }

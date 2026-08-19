@@ -32,6 +32,18 @@ export async function POST(request: Request) {
       return new Response("Missing booking information", { status: 400 });
     }
 
+
+    const existingAppointment = await prisma.appointment.findUnique({
+        where: {
+          stripeSessionId: session.id,
+        },
+      });
+      
+      if (existingAppointment) {
+        return new Response("Already processed", { status: 200 });
+      }
+
+
     const customer = await prisma.customer.create({
       data: {
         name: metadata.customerName,
@@ -42,6 +54,7 @@ export async function POST(request: Request) {
 
     await prisma.appointment.create({
       data: {
+        stripeSessionId: session.id,
         date: new Date(metadata.selectedDate),
         time: metadata.selectedTime,
         service: metadata.selectedService,
