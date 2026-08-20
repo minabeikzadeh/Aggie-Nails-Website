@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react"
+import { useEffect } from "react"
 import styles from "./bookingForm.module.css"
 import Image from "next/image";
 import { DayPicker } from "react-day-picker";
@@ -31,8 +32,28 @@ export default function BookingForm(){
     const [customerName, setCustomerName] = useState("");
     const [customerEmail, setCustomerEmail] = useState("");
     const [customerTel, setCustomerTel] = useState("");
+    const [bookedTimes, setBookedTimes] = useState<string[]>([]);
 
     const timesForSelectedDate = selectedDate ? availableTimes[selectedDate.getDay() as keyof typeof availableTimes] : [];
+
+    useEffect(() => {
+        if (!selectedDate) {
+          setBookedTimes([]);
+          return;
+        }
+      
+        const date = selectedDate.toISOString().split("T")[0];
+      
+        fetch(`/api/appointments?date=${date}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setBookedTimes(data.bookedTimes ?? []);
+          })
+          .catch((error) => {
+            console.error("Could not load booked times:", error);
+            setBookedTimes([]);
+          });
+      }, [selectedDate]);
 
     const handleContinue = () => {
         
@@ -272,28 +293,32 @@ export default function BookingForm(){
                 )}
 
                 {currentStep === 5 && (
-                    <div className={styles.additionalQuestion}>
-                        <p> Select a time </p>
+                <div className={styles.additionalQuestion}>
+                    <p>Select a time</p>
 
-                    
-                        <div className={styles.additionalQuestionAnswers}>
-                            {timesForSelectedDate.map((time) => (
-                                <label key={time}>
-                                    <input 
-                                        type = "radio"
-                                        name = "appointmentTime"
-                                        value = {time}
-                                        onChange = {() => {
-                                            setSelectedTime(time);
-                                        }}
-                                    />
-                                    {time}
+                    <div className={styles.additionalQuestionAnswers}>
+                    {timesForSelectedDate.map((time) => {
+                        const isBooked = bookedTimes.includes(time);
 
-                                </label>
-                        
-                        ))}
-                        </div>
+                        return (
+                        <label key={time}>
+                            <input
+                            type="radio"
+                            name="appointmentTime"
+                            value={time}
+                            disabled={isBooked}
+                            onChange={() => {
+                                setSelectedTime(time);
+                            }}
+                            />
+
+                            {time}
+                            {isBooked && " (Booked)"}
+                        </label>
+                        );
+                    })}
                     </div>
+                </div>
                 )}
 
                 {currentStep === 6 && (

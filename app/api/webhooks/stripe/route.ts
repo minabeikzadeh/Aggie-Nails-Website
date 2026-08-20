@@ -53,18 +53,29 @@ export async function POST(request: Request) {
     });
 
     await prisma.appointment.create({
-      data: {
-        stripeSessionId: session.id,
-        date: new Date(metadata.selectedDate),
-        time: metadata.selectedTime,
-        service: metadata.selectedService,
-        extensions:
-          metadata.appointmentType === "New" ||
-          metadata.appointmentType === "Fill",
-        removal: metadata.removalType !== "noRemoval",
-        customerId: customer.id,
-      },
-    });
+        data: {
+          stripeSessionId: session.id,
+          date: new Date(metadata.selectedDate),
+          time: metadata.selectedTime,
+          service: metadata.selectedService,
+      
+          AppointmentType:
+            metadata.appointmentType === "New"
+              ? "NEW"
+              : metadata.appointmentType === "Fill"
+              ? "FILL"
+              : "NATURAL",
+      
+          removalType:
+            metadata.removalType === "LocalRemoval"
+              ? "LOCAL"
+              : metadata.removalType === "foreignRemoval"
+              ? "FOREIGN"
+              : "NONE",
+      
+          customerId: customer.id,
+        },
+      });
   }
 
   return new Response("OK", { status: 200 });

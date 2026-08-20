@@ -7,6 +7,8 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
+    const selectedDate = new Date(body.selectedDate);
+    const dateString = selectedDate.toISOString().split("T")[0];
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
 
@@ -35,7 +37,7 @@ export async function POST(request: Request) {
         selectedService: body.selectedService,
         appointmentType: body.appointmentType,
         removalType: body.removalType,
-        selectedDate: body.selectedDate,
+        selectedDate: dateString,
         selectedTime: body.selectedTime,
       },
     });
