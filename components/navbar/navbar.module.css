@@ -15,3 +15,24 @@
 .boldedElements {
     font-weight: 900;
 }
+
+
+/* Mobile */
+@media (max-width: 768px) {
+    .navbar {
+        margin: 15px;
+        
+        gap: 15px;
+    }
+
+    .links {
+        gap: 1.5rem;
+        font-size: 18px;
+        margin-left: 1rem;
+    }
+
+    .navbar button {
+        font-size: 18px;
+        padding: 8px 12px;
+    }
+}

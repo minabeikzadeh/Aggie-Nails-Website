@@ -93,3 +93,58 @@
     border: 1px solid currentColor;
     color: black;
   }
+
+  @media (max-width: 768px) {
+    .page {
+        padding: 25px 15px;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .card {
+        padding: 40px 22px;
+        border-radius: 16px;
+    }
+
+    .checkmark {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 20px;
+        font-size: 28px;
+    }
+
+    .smallTitle {
+        font-size: 0.75rem;
+    }
+
+    .card h1 {
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+
+    .message {
+        font-size: 0.95rem;
+        margin-bottom: 25px;
+    }
+
+    .details {
+        padding: 15px 0;
+        margin-bottom: 20px;
+    }
+
+    .details div {
+        gap: 10px;
+        font-size: 0.9rem;
+    }
+
+    .emailMessage {
+        font-size: 0.9rem;
+        margin-bottom: 25px;
+    }
+
+    .homeButton {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 13px 20px;
+    }
+}

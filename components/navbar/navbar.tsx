@@ -4,7 +4,6 @@ import Link from "next/link";
 export default function NavBar(){
     return(
         <nav className={styles.navbar}>
-            <h1 className={styles.boldedElements}>Aggie Nails</h1>
             <div className={styles.links}>
                 <a href="/">Home</a>
                 <a href="/gallery">Gallery</a>

@@ -90,14 +90,7 @@ export async function POST(request: Request) {
           console.log("APPOINTMENT CREATED:", appointment.id);
 
            // Send confirmation email
-        console.log("ABOUT TO SEND EMAIL");
-        console.log("RESEND KEY EXISTS:", !!process.env.RESEND_API_KEY);
-    console.log("CUSTOMER EMAIL:", metadata.customerEmail);
-    console.log("ABOUT TO SEND EMAIL");
-    console.log("RESEND KEY EXISTS:", !!process.env.RESEND_API_KEY);
-    console.log("CUSTOMER EMAIL:", metadata.customerEmail);
-    
-    const emailResult = await resend.emails.send({
+        const emailResult = await resend.emails.send({
       from: "Aggie Nails <onboarding@resend.dev>",
       to: metadata.customerEmail,
       subject: "Your Aggie Nails appointment is confirmed 💅",
@@ -118,12 +111,18 @@ export async function POST(request: Request) {
             <strong>Service:</strong> ${metadata.selectedService}<br>
             <strong>Date:</strong> ${metadata.selectedDate}<br>
             <strong>Time:</strong> ${metadata.selectedTime}
+            <strong>Address:</strong> 880 Alvarado Ave #207, Davis, CA 95616
           </p>
     
+          <p>
+            <strong>Arrival:</strong> Please note that there is a 10-minute grace period for your appointment.
+        </p>
+
           <h2>Payment</h2>
           <p>
             <strong>$20 deposit:</strong> Paid<br>
             <strong>Remaining Balance:</strong> Due at your appointment<br>
+
             The $20 deposit will be applied toward your total service price.
           </p>
     

@@ -247,3 +247,89 @@
     font-weight: 600;
 }
 
+/* Mobile */
+@media (max-width: 768px) {
+
+    .bookingPage {
+        height: auto;
+        min-height: 90vh;
+        overflow: visible;
+    }
+
+    .bookingContainer {
+        padding: 1.5rem 1rem;
+    }
+
+    .title {
+        font-size: 2.2rem;
+        text-align: center;
+    }
+
+    .serviceGrid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .serviceCard {
+        width: 100%;
+    }
+
+    .essential_img,
+    .signature_img,
+    .statement_img {
+        height: 300px;
+    }
+
+    .essential_img {
+        display:block;
+        width: 100%;
+        height: 390px;
+        object-fit: cover;
+        object-position: 50% 69%;
+        transform: rotate(90deg);
+    }
+
+    .serviceInfo {
+        padding: 1rem;
+    }
+
+    .serviceCard h2 {
+        font-size: 1.35rem;
+    }
+
+    .serviceCard ul {
+        font-size: 1.1rem;
+    }
+
+    .stepContainer {
+        width: 100%;
+        max-width: none;
+        margin: 1.5rem 0;
+        padding: 1.25rem;
+        border-radius: 16px;
+    }
+
+    .additionalQuestion {
+        gap: 1rem;
+    }
+
+    .additionalQuestion p {
+        font-size: 1.3rem;
+    }
+
+    .additionalQuestion label {
+        padding: 1.2rem;
+    }
+
+    .additionalQuestionAnswers label {
+        width: 100%;
+    }
+
+    .continueButton {
+        margin-top: 1rem;
+    }
+
+    .calendar {
+        overflow-x: auto;
+    }
+}
