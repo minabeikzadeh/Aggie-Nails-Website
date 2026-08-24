@@ -386,6 +386,10 @@ export default function BookingForm(){
                     <button
                         className={styles.continueButton}
                         onClick={handleContinue}
+                        disabled={
+                            currentStep === 5 &&
+                            bookedTimes.includes(selectedTime)
+                        }
                     >
                     Continue
                     </button>
