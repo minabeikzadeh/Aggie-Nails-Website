@@ -101,7 +101,7 @@ export async function POST(request: Request) {
           <p>Hi ${metadata.customerName},</p>
     
           <p>
-            Thank you for booking with Aggy Nails!
+            Thank you for booking with Aggie Nails!
             Your appointment has been confirmed.
           </p>
     
@@ -122,7 +122,9 @@ export async function POST(request: Request) {
           <p>
             <strong>$20 deposit:</strong> Paid<br>
             <strong>Remaining Balance:</strong> Due at your appointment<br>
+          </p>
 
+          <p>
             The $20 deposit will be applied toward your total service price.
           </p>
     
