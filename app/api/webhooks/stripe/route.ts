@@ -1,8 +1,13 @@
 import Stripe from "stripe";
 import { prisma } from "@/lib/prisma";
+import { Resend } from "resend";
+
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
+
+//Stripe process
 export async function POST(request: Request) {
   const body = await request.text();
   const signature = request.headers.get("stripe-signature");
@@ -25,7 +30,6 @@ export async function POST(request: Request) {
   }
 
   if (event.type === "checkout.session.completed") {
-    if (event.type === "checkout.session.completed") {
         const session = event.data.object;
         const metadata = session.metadata;
       
@@ -84,13 +88,59 @@ export async function POST(request: Request) {
           });
       
           console.log("APPOINTMENT CREATED:", appointment.id);
-      
-        } catch (error) {
-          console.error("WEBHOOK DATABASE ERROR:", error);
-          return new Response("Database error", { status: 500 });
-        }
-      }
+
+           // Send confirmation email
+      await resend.emails.send({
+        from: "Aggie Nails <onboarding@resend.dev>",
+        to: metadata.customerEmail,
+        subject: "Your Aggie Nails appointment is confirmed 💅",
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto;">
+            <h1>Your appointment is confirmed! 💅</h1>
+
+            <p>Hi ${metadata.customerName},</p>
+
+            <p>
+              Thank you for booking with Aggy Nails!
+              Your appointment has been confirmed.
+            </p>
+
+            <h2>Appointment Details</h2>
+
+            <p>
+              <strong>Service:</strong> ${metadata.selectedService}<br>
+              <strong>Date:</strong> ${metadata.selectedDate}<br>
+              <strong>Time:</strong> ${metadata.selectedTime}
+            </p>
+
+            <h2>Payment</h2>
+            <p>
+            <strong>$20 deposit:</strong> Paid<br>
+            <strong>Remaining Balance:</strong> Due at your appointment<br>
+            The $20 deposit will be applied toward your total service price.
+            </p>
+
+            <p>
+              Can't wait to see you! 💗
+            </p>
+
+            <p>
+              — Mina from Aggie Nails
+            </p>
+          </div>
+        `,
+      });
+
+      console.log("CONFIRMATION EMAIL SENT:", metadata.customerEmail);
+      console.log("RESEND KEY EXISTS:", !!process.env.RESEND_API_KEY);
+    console.log("CUSTOMER EMAIL:", metadata.customerEmail);
+
+    } catch (error) {
+      console.error("WEBHOOK DATABASE/EMAIL ERROR:", error);
+      return new Response("Database or email error", { status: 500 });
+    }
   }
+
 
   return new Response("OK", { status: 200 });
 }

@@ -76,30 +76,37 @@ export default function BookingForm(){
 
 
         const handleBooking = async () => {
+
             const response = await fetch("/api/create-checkout-session", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                customerName,
-                customerEmail,
-                customerTel,
-                selectedService,
-                appointmentType,
-                removalType,
-                selectedDate,
-                selectedTime,
-              }),
-            });
-          
-            const data = await response.json();
-          
-            if (data.url) {
-              window.location.href = data.url;
-            } else {
-              console.error(data.error);
-            }
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  customerName,
+                  customerEmail,
+                  customerTel,
+                  selectedService,
+                  appointmentType,
+                  removalType,
+                  selectedDate,
+                  selectedTime,
+                }),
+              });
+              
+              const data = await response.json();
+              
+              if (response.status === 409) {
+                alert("Sorry, that time was just booked. Please choose another time.");
+                setSelectedTime("");
+                return;
+              }
+              
+              if (data.url) {
+                window.location.href = data.url;
+              } else {
+                console.error("Checkout error:", data.error);
+              }
           };
           
     return(
@@ -301,19 +308,21 @@ export default function BookingForm(){
                         const isBooked = bookedTimes.includes(time);
 
                         return (
-                        <label key={time}>
+                        <label
+                            key={time}
+                            className={isBooked ? styles.bookedTime : ""}
+                        >
                             <input
                             type="radio"
                             name="appointmentTime"
                             value={time}
                             disabled={isBooked}
-                            onChange={() => {
-                                setSelectedTime(time);
-                            }}
+                            onChange={() => setSelectedTime(time)}
                             />
 
-                            {time}
-                            {isBooked && " (Booked)"}
+                            <span>{time}</span>
+
+                            {isBooked && <span className={styles.bookedLabel}>Booked</span>}
                         </label>
                         );
                     })}
