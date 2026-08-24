@@ -91,7 +91,7 @@ export async function POST(request: Request) {
 
            // Send confirmation email
         const emailResult = await resend.emails.send({
-      from: "Aggie Nails <onboarding@resend.dev>",
+      from: "Aggie Nails <hello@aggienails.com>",
       to: metadata.customerEmail,
       subject: "Your Aggie Nails appointment is confirmed 💅",
       html: `
@@ -133,8 +133,8 @@ export async function POST(request: Request) {
       `,
     });
     
-    console.log("RESEND RESULT:", emailResult);
-    console.log("CONFIRMATION EMAIL SENT:", metadata.customerEmail);
+    console.log("RESEND ERROR:", emailResult.error);
+    console.log("RESEND DATA:", emailResult.data);
 
     } catch (error) {
       console.error("WEBHOOK DATABASE/EMAIL ERROR:", error);

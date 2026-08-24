@@ -37,7 +37,7 @@ export async function POST(request: Request) {
           price_data: {
             currency: "usd",
             product_data: {
-              name: "Aggy Nails Deposit",
+              name: "Aggie Nails Deposit",
             },
             unit_amount: 2000,
           },
