@@ -7,7 +7,7 @@ import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
 
 
-const bookingStartDate = new Date(2026, 8, 1);
+const bookingStartDate = new Date(2026, 8, 16);
 const bookingEndDate = new Date(2026, 8, 30);
 const availableTimes= {
     0: ["11:30 am", "2:00 pm"],
@@ -293,6 +293,7 @@ export default function BookingForm(){
                                     before: bookingStartDate,
                                     after: bookingEndDate,
                                 }}
+                                defaultMonth={bookingStartDate}
                                 numberOfMonths={1}
                             />
                         </div>
