@@ -6,7 +6,7 @@ export default function Gallery(){
         <NavBar />
         <main>
             <h1>Gallery</h1>
-            <p>See some of my sets</p>
+            <p>Under construction, come back later!</p>
         </main>
         </>
     );

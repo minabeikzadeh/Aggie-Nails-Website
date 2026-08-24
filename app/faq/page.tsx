@@ -6,7 +6,7 @@ export default function FAQ(){
         <NavBar />
         <main>
             <h1>FAQ</h1>
-            <p>Frequently asked questions</p>
+            <p>Under construction, come back later!</p>
         </main>
         </>
     );

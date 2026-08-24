@@ -7,7 +7,7 @@ export default function About(){
         <NavBar />
         <main>
             <h1>About</h1>
-            <p>Hi! My name is Mina and this is Aggie Nails</p>
+            <p>Under construction, come back later!</p>
         </main>
         </>
     );
