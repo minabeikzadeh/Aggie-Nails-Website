@@ -150,7 +150,7 @@ export default function BookingForm(){
                         <div className={styles.serviceInfo}>
                             <h2>Essential</h2>
                             <ul><li>Solid color</li><li>French tip</li><li>Chrome</li></ul>
-                            <h3 className={styles.price}>$75</h3>
+                            <h3 className={styles.price}>$80</h3>
                         </div>
                     </div>
 
@@ -172,7 +172,7 @@ export default function BookingForm(){
                         <div className={styles.serviceInfo}>
                             <h2>Signature</h2>
                             <ul><li>3D Art</li><li>Charms and Gems</li><li>Simple Nail Art</li></ul>
-                            <h3 className={styles.price}>$95</h3>
+                            <h3 className={styles.price}>$90</h3>
                         </div>
                     </div>
 
@@ -253,7 +253,7 @@ export default function BookingForm(){
                             }}
                         >
                             <input type = "radio" name= "removalNeeded" />
-                            Remove my previous Aggie Nails set
+                            Remove my previous Aggie Nails set (+$10)
                         </label>
 
                         <label
@@ -262,7 +262,7 @@ export default function BookingForm(){
                             }}
                         >
                             <input type = "radio" name= "removalNeeded" />
-                            Remove another nail tech's work
+                            Remove another nail tech's work (+$20)
                         </label>
 
                         <label
