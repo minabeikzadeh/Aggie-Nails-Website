@@ -1,0 +1,10 @@
+.home {
+    min-height: 100vh;
+    background-image: linear-gradient(
+        rgba(10, 10, 10, 0.4),
+        rgba(0, 0, 0, 0.4)
+    ), url("/images/IMG_2537_edited.png");
+    background-size: cover;
+    background-position: center;
+}
+

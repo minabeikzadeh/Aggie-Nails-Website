@@ -9,12 +9,6 @@
     align-items: center;
     gap: 0rem;
 
-    background-image: linear-gradient(
-        rgba(10, 10, 10, 0.4),
-        rgba(0, 0, 0, 0.4)
-    ), url("/images/IMG_2537_edited.png");
-    background-size: 105%;
-    background-position: center;
 }
 
 .title {

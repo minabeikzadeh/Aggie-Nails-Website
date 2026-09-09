@@ -1,38 +1,52 @@
-
 .navbar {
     display: flex;
     justify-content: space-between;
-    margin: 20px;
     align-items: center;
+
+    margin: 20px 30px;
+    padding: 14px 22px;
+
+    /* Glass effect */
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    /* Subtle glass border */
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 18px;
+
+    /* Very subtle depth */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+
     font-weight: 500;
+
+    position: relative;
+    z-index: 10;
 }
 
 .links {
     display: flex;
-    gap: 8rem;
+    align-items: center;
+    gap: 3rem;
+}
+
+.links a {
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.links a:hover {
+    opacity: 0.65;
 }
 
 .boldedElements {
-    font-weight: 900;
+    font-weight: 700;
 }
 
-
-/* Mobile */
-@media (max-width: 768px) {
-    .navbar {
-        margin: 15px;
-        
-        gap: 15px;
-    }
-
-    .links {
-        gap: 1.5rem;
-        font-size: 18px;
-        margin-left: 1rem;
-    }
-
-    .navbar button {
-        font-size: 18px;
-        padding: 8px 12px;
-    }
+.active {
+    background: rgba(255, 255, 255, 0.18);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    padding: 0.3rem 1rem;
 }
