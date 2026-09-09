@@ -50,3 +50,29 @@
     border-radius: 18px;
     padding: 0.3rem 1rem;
 }
+
+@media (max-width: 768px) {
+    .navbar {
+        margin: 12px;
+        padding: 10px 12px;
+        border-radius: 14px;
+    }
+
+    .links {
+        gap: 1.2rem;
+    }
+
+    .links a {
+        font-size: 14px;
+    }
+
+    .navbar button {
+        font-size: 14px;
+        padding: 7px 10px;
+    }
+
+    .active {
+        padding: 0.3rem 0.55rem;
+        border-radius: 8px;
+    }
+}

@@ -8,3 +8,8 @@
     background-position: center;
 }
 
+@media (max-width: 768px) {
+    .home {
+        background-position: 48% center;
+    }
+}
