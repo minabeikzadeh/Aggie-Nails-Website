@@ -1,7 +1,7 @@
 import Stripe from "stripe";
 import { prisma } from "@/lib/prisma";
 import { Resend } from "resend";
-
+import { createGoogleCalendarEvent } from "@/lib/googleCalendar";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -88,6 +88,33 @@ export async function POST(request: Request) {
           });
       
           console.log("APPOINTMENT CREATED:", appointment.id);
+
+          //make google calendar event
+          try{
+            const googleEventId = await createGoogleCalendarEvent({
+              customerName: metadata.customerName,
+              customerEmail: metadata.customerEmail,
+              service: metadata.selectedService,
+              date: new Date(metadata.selectedDate),
+              time: metadata.selectedTime,
+            });
+            
+            console.log("GOOGLE CALENDAR EVENT CREATED:", googleEventId);
+
+            await prisma.appointment.update({
+              where: {
+                id: appointment.id,
+              },
+              data: {
+                googleEventId,
+              },
+            });
+            
+            console.log("GOOGLE EVENT ID SAVED:", googleEventId);
+        } catch (calendarError) {
+          console.error("GOOGLE CALENDAR ERROR:", calendarError);
+        }
+
 
            // Send confirmation email
         const emailResult = await resend.emails.send({

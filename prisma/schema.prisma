@@ -39,7 +39,8 @@ model Appointment {
   service     String
   AppointmentType  AppointmentType
   removalType     RemovalType
-  stripeSessionId String @unique 
+  stripeSessionId String @unique
+  googleEventId String? @unique
   createdAt   DateTime @default(now())
 
   customerId  Int
