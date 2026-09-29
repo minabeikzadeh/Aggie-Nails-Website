@@ -14,6 +14,7 @@
 .title {
     font-size: 3.5rem;
     font-weight: 700;
+    color: white;
 }
 
 .slogan {
@@ -22,7 +23,8 @@
     font-weight: 400;
     font-style: italic;
     letter-spacing: 0.01em;
-    
+    color: white;
+
 }
 
 .button {
@@ -45,11 +47,13 @@
 
     .title {
         font-size: 2.5rem;
+        color: white;
     }
 
     .slogan {
         font-size: 1.1rem;
         padding: 0 20px;
+        color: white;
     }
 
     .button {

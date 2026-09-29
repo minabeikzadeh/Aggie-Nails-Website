@@ -1,8 +1,7 @@
 
 .bookingPage{
     background-color:  #faf7f5;
-    height: 90vh;
-    overflow: hidden;
+    min-height: 90vh;
 }
 
 .serviceGrid{

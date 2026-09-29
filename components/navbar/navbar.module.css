@@ -24,6 +24,13 @@
     z-index: 10;
 }
 
+
+.navbar button {
+        font-size: 14px;
+        padding: 7px 10px;
+        color: white;
+}
+
 .links {
     display: flex;
     align-items: center;
@@ -69,6 +76,7 @@
     .navbar button {
         font-size: 14px;
         padding: 7px 10px;
+        color: white;
     }
 
     .active {
