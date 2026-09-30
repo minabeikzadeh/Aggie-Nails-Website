@@ -6,11 +6,13 @@
     "dev": "next dev",
     "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sync:calendar": "tsx scripts/syncAppointmentsToGoogle.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",
+    "dotenv": "^18.0.4",
     "googleapis": "^178.0.0",
     "next": "16.2.12",
     "pg": "^8.23.0",
@@ -29,6 +31,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }

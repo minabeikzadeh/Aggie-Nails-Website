@@ -8,7 +8,7 @@ import "react-day-picker/style.css";
 
 
 const bookingStartDate = new Date(2026, 8, 16);
-const bookingEndDate = new Date(2026, 8, 30);
+const bookingEndDate = new Date(2026, 9, 31);
 const availableTimes= {
     0: ["11:30 am", "2:00 pm"],
     1: ["10:00 am", "1:00 pm"],
@@ -18,6 +18,19 @@ const availableTimes= {
     5: ["9:30 am"],
     6: ["11:30 am", "2:00 pm"]
 };
+const unavailableDates = [
+new Date(2026, 9, 17), // October 17
+new Date(2026, 9, 18), // October 18
+new Date(2026, 9, 19), // October 19
+new Date(2026, 9, 20), // October 20
+new Date(2026, 9, 21), // October 21
+new Date(2026, 9, 22), // October 22
+new Date(2026, 9, 23), // October 23
+new Date(2026, 9, 24), // October 24
+new Date(2026, 9, 25), // October 25
+new Date(2026, 9, 30), // October 30
+new Date(2026, 9, 31), // October 31
+];
 
 
 export default function BookingForm(){
@@ -289,10 +302,12 @@ export default function BookingForm(){
                                         if (!date) return;
                                         setSelectedDate(date);
                                 }}
-                                disabled={{
-                                    before: bookingStartDate,
-                                    after: bookingEndDate,
-                                }}
+                                disabled={[
+                                    {before: new Date()},
+                                    {after: bookingEndDate},
+                                    {dayOfWeek: [2,4]},
+                                    ...unavailableDates,
+                                ]}
                                 defaultMonth={bookingStartDate}
                                 numberOfMonths={1}
                             />
