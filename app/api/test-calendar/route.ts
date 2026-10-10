@@ -6,6 +6,8 @@ export async function GET() {
     const eventId = await createGoogleCalendarEvent({
       customerName: "Test Customer",
       customerEmail: "test@example.com",
+      customerPhone: "555-010-1234",
+      removalType: "NONE",
       service: "Gel-X",
       date: new Date("2026-09-22"),
       time: "13:00",
