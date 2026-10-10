@@ -94,6 +94,8 @@ export async function POST(request: Request) {
             const googleEventId = await createGoogleCalendarEvent({
               customerName: metadata.customerName,
               customerEmail: metadata.customerEmail,
+              customerPhone: metadata.customerPhone,
+              removalType: metadata.removalType,
               service: metadata.selectedService,
               date: new Date(metadata.selectedDate),
               time: metadata.selectedTime,
