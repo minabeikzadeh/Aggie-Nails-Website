@@ -18,12 +18,16 @@ const calendar = google.calendar({
 export async function createGoogleCalendarEvent({
   customerName,
   customerEmail,
+  customerPhone,
+  removalType,
   service,
   date,
   time,
 }: {
   customerName: string;
   customerEmail: string;
+  customerPhone: string;
+  removalType: string;
   service: string;
   date: Date;
   time: string;
@@ -80,7 +84,10 @@ export async function createGoogleCalendarEvent({
       description: `
 Customer: ${customerName}
 Email: ${customerEmail}
+Phone: ${customerPhone}
 Service: ${service}
+Removal: ${removalType}
+
 Booked through Aggie Nails.
       `.trim(),
 

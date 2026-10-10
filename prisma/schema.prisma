@@ -17,17 +17,19 @@ model Customer {
 }
 
 model Appointment {
-  id              Int             @id @default(autoincrement())
-  date            DateTime
-  service         String
-  createdAt       DateTime        @default(now())
-  customerId      Int
-  time            String
-  stripeSessionId String          @unique
-  AppointmentType AppointmentType
-  removalType     RemovalType
-  googleEventId   String?         @unique
-  customer        Customer        @relation(fields: [customerId], references: [id])
+  id               Int      @id @default(autoincrement())
+  date             DateTime
+  time             String
+  service          String
+  AppointmentType  AppointmentType
+  removalType      RemovalType
+  stripeSessionId  String   @unique
+  googleEventId    String?  @unique
+  reminderSentAt   DateTime?
+  createdAt        DateTime @default(now())
+
+  customerId       Int
+  customer         Customer @relation(fields: [customerId], references: [id])
 
   @@unique([date, time])
 }
