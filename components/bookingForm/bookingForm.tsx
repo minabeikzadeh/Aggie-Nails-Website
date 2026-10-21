@@ -18,7 +18,7 @@ const availableTimes= {
     5: ["9:30 am"],
     6: ["11:30 am", "2:00 pm"]
 };
-const unavailableDates = [
+const unavailableDates: Date[] = [
 //new Date(2026, 9, 17) //example date
 
 ];
