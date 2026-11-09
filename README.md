@@ -1,53 +1,46 @@
 # Aggie Nails 💅
 
-A full-stack appointment booking and payment platform built for Aggie Nails,
-a student-run nail business serving UC Davis students.
+A full-stack booking and payment platform for Aggie Nails, a student-run nail business serving UC Davis. It's live in production and processed **48 deposits ($960) in its first month**.
 
-🔗 Live Website: https://www.aggienails.com/
+🔗 **Live:** https://www.aggienails.com
 
-## Overview
+## Tech stack
+Next.js · React · TypeScript · PostgreSQL · Prisma · Stripe · Resend · Google Calendar API · Vercel
 
-Aggie Nails is a production booking platform that allows customers to:
+## Features
 
-- Browse available nail services
-- Select appointment dates and times
-- Choose appointment types and removal options
-- Submit their contact information
-- Pay an appointment deposit through Stripe
-- Receive booking confirmation emails
+### 📅 Appointment booking
+Customers browse services, pick a date and time, choose the appointment type (new set, fill or natural) and removal option, and enter their contact details.
 
-The platform also manages appointments through a PostgreSQL database,
-preventing double bookings through database constraints.
+### 🔒 No double bookings
+A unique constraint on `(date, time)` in PostgreSQL means two customers can never hold the same slot, even if they check out at the same moment.
 
-## Tech Stack
+### 💳 Stripe deposits
+Customers pay a deposit through Stripe Checkout. The appointment is created only when the Stripe webhook reports `checkout.session.completed`, so unpaid bookings never block the calendar. The webhook verifies Stripe's signature and is idempotent: each appointment stores its Stripe session ID, so a retried event never creates a duplicate booking.
 
-- Next.js
-- React
-- TypeScript
-- PostgreSQL
-- Prisma
-- Stripe
-- Resend
-- Vercel
+### 📧 Confirmations and reminders
+Resend sends a confirmation email as soon as payment succeeds. A Vercel Cron job sends a reminder about 24 hours before each appointment and records when it went out, so nobody gets reminded twice.
 
-## Key Features
+### 🗓️ Google Calendar sync
+Every paid booking is added to the business's Google Calendar automatically. A backfill script (`npm run sync:calendar`) syncs any appointments that are missing.
 
-### 📅 Appointment Booking
-...
+## Data model
+- **Customer:** name, email, phone
+- **Appointment:** date, time, service, appointment type, removal type, Stripe session ID, Google Calendar event ID, reminder timestamp
 
-### 💳 Stripe Payments
-...
+## Running locally
+```bash
+npm install
+# create .env with: DATABASE_URL, STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET,
+# RESEND_API_KEY, CRON_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET,
+# GOOGLE_REDIRECT_URI, GOOGLE_REFRESH_TOKEN
+npx prisma migrate dev
+npm run dev
+```
 
-### 📧 Confirmation Emails
-...
-
-### 🗄️ Database
-...
-
-## What I Learned
-
-- Building a full-stack application with Next.js
-- Designing a relational database with Prisma/PostgreSQL
-- Integrating Stripe Checkout and webhooks
-- Handling asynchronous payment confirmation
-- Deploying a production application with Vercel
+## What I learned
+- Building and shipping a full-stack Next.js app for real, paying customers
+- Designing a relational schema with Prisma and PostgreSQL
+- Handling asynchronous payment confirmation safely with Stripe webhooks
+- Scheduling background jobs with Vercel Cron
+- Integrating the Google Calendar API with OAuth
